@@ -3,4 +3,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_here">Search here</string>
+    <string name="color">TODO</string>
+    <string name="color2">TODO</string>
+    <string name="color3">TODO</string>
+    <string name="color4">TODO</string>
 </resources>

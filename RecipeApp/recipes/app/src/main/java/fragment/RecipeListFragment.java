@@ -28,6 +28,7 @@ import viewmodel.RecipeListFragmentViewModel;
 
 public class RecipeListFragment extends Fragment {
 
+    // Input that user enters
     private final String food_filter = null;
 
     // Declares data binding, view model, recycler view adapter

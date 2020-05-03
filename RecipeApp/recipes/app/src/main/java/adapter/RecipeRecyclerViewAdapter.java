@@ -65,7 +65,7 @@ public class RecipeRecyclerViewAdapter<MyViewHolder> extends RecyclerView.Adapte
         holder.binding.tvSource.setText(recipe.source);
         holder.binding.tvHealthLabel.setText(recipe.healthLabels.toString());
         holder.binding.tvUrl.setText(recipe.url);
-        //holder.binding.tvIngredients.setText(recipe.ingredients);
+        holder.binding.tvIngredients.setText(recipe.ingredientLines.toString());
 
    }
 
