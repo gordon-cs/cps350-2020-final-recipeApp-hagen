@@ -15,6 +15,7 @@ import com.example.recipes.databinding.ItemRecipeBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+import fragment.RecipeListFragment;
 import networking.response.RecipeList;
 
 
@@ -28,6 +29,11 @@ public class RecipeRecyclerViewAdapter<MyViewHolder> extends RecyclerView.Adapte
         this.recipeList = recipeList;
         notifyDataSetChanged();
     }
+
+//    public void setIngredientList(List<IngredientList.ingredients> ingredientList) {
+//        this.RecipeList.RecipeItem.IngredientItem.ingredient = ingredientList;
+//        notifyDataSetChanged();
+//    }
 
     // Creates new views when RecipeRecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an item.
     @NonNull
@@ -50,11 +56,18 @@ public class RecipeRecyclerViewAdapter<MyViewHolder> extends RecyclerView.Adapte
         RecipeList.Recipe recipe = recipeItem.recipe;
         holder.binding.tvTitle.setText(recipe.label);
 
+//        RecipeList.RecipeItem.IngredientItem ingredientItem = ingredientList.get(position);
+//        RecipeList.Ingredient ingredient = RecipeList.RecipeItem.IngredientItem.ingredient;
+//        holder.binding.tvIngredientLines.setText(ingredient.text);
+
         // https://github.com/bumptech/glide
         // Displays the image
         Glide.with(holder.itemView).load(recipe.image).into(holder.binding.ivRecipe);
 
-    }
+        holder.binding.tvSource.setText(recipe.source);
+        holder.binding.tvUrl.setText(recipe.url);
+       //holder.binding.tvIngredientLines.setText(recipe.ingredientLines);
+   }
 
     //Returns the total number of items in the data set held by the adapter.
     @Override

@@ -1,6 +1,8 @@
 package fragment;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +31,6 @@ public class RecipeListFragment extends Fragment {
     private FragmentRecipeListBinding mDataBind;
     private RecipeListFragmentViewModel mViewModel;
     private final RecipeRecyclerViewAdapter mAdapter = new RecipeRecyclerViewAdapter();
-
     public RecipeListFragment() { }
 
     @Override
@@ -38,6 +39,7 @@ public class RecipeListFragment extends Fragment {
 
         mViewModel = ViewModelProviders.of(this).get(RecipeListFragmentViewModel.class);
         mViewModel.getRecipes();
+
 
         listenToLiveDataUpdates();
     }
@@ -54,12 +56,14 @@ public class RecipeListFragment extends Fragment {
         });
     }
 
+
     // Called to have the fragment instantiate its user interface view.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Data binding
         mDataBind = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_recipe_list, container, false);
         mDataBind.rvRecipe.setAdapter(mAdapter);
+
         return mDataBind.getRoot();
     }
 

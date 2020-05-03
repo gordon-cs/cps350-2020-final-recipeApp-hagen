@@ -12,6 +12,9 @@ import retrofit2.Response;
 
 public class RecipeListFragmentViewModel extends ViewModel {
 
+    private boolean viewingRecipe;
+    private boolean performingQuery;
+
     public MutableLiveData<RecipeList> recipeListLiveData = new MutableLiveData();
 
     // This calls the API using Retrofit
@@ -35,5 +38,10 @@ public class RecipeListFragmentViewModel extends ViewModel {
 
                     }
                 });
+    }
+
+    public void searchRecipeApi() {
+        viewingRecipe = true;
+        performingQuery = true;
     }
 }
