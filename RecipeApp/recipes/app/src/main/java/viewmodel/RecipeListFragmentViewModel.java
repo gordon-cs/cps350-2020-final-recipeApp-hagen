@@ -12,16 +12,13 @@ import retrofit2.Response;
 
 public class RecipeListFragmentViewModel extends ViewModel {
 
-    private boolean viewingRecipe;
-    private boolean performingQuery;
-
     public MutableLiveData<RecipeList> recipeListLiveData = new MutableLiveData();
 
     // This calls the API using Retrofit
-    public void getRecipes() {
+    public void getRecipes(String foodType) {
         RetrofitApi
                 .singleton()
-                .getRecipes()
+                .getRecipes(foodType)
                 .enqueue(new Callback<RecipeList>() {
 
                     // https://stackoverflow.com/questions/51780696/how-to-make-retrofit-api-call-using-viewmodel-and-livedata
@@ -38,10 +35,5 @@ public class RecipeListFragmentViewModel extends ViewModel {
 
                     }
                 });
-    }
-
-    public void searchRecipeApi() {
-        viewingRecipe = true;
-        performingQuery = true;
     }
 }

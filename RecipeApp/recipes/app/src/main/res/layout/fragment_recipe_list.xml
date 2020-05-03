@@ -23,10 +23,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.SearchView
+        <EditText
             android:id="@+id/sv_recipe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Search here"
             app:showAsAction="always"/>
 
         </androidx.appcompat.widget.Toolbar>

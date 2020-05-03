@@ -30,10 +30,19 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_recipe"
             android:layout_width="match_parent"
-            android:layout_height="350dp" />
+            android:layout_height="300dp"
+            android:padding="10dp"/>
 
         <TextView
             android:id="@+id/tv_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:fontFamily="sans-serif-medium"
+            android:padding="5dp"/>
+
+        <TextView
+            android:id="@+id/tv_healthLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="17dp"
@@ -47,11 +56,11 @@
             android:padding="5dp"/>
 
         <TextView
-            android:id="@+id/tv_shareAs"
+            android:id="@+id/tv_ingredients"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="17dp"
-            android:padding="5dp"/>
+            android:padding="15dp"/>
 
 
     </LinearLayout>
