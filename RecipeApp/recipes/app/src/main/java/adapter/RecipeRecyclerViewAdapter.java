@@ -1,28 +1,30 @@
 package adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.recipes.R;
-import com.example.recipes.databinding.ItemRecipeBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import fragment.RecipeListFragment;
 import networking.response.RecipeList;
 
 
 public class RecipeRecyclerViewAdapter<MyViewHolder> extends RecyclerView.Adapter<RecipeRecyclerViewAdapter.MyViewHolder> {
 
     // Abstract recipe list
-    List<RecipeList.RecipeItem> recipeList = new ArrayList<>();
+    private List<RecipeList.RecipeItem> recipeList = new ArrayList<>();
 
     public void clearList() {
         this.recipeList.clear();
@@ -41,11 +43,8 @@ public class RecipeRecyclerViewAdapter<MyViewHolder> extends RecyclerView.Adapte
     @Override
     public RecipeRecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Creates a new view
-        Context context = parent.getContext();
-        ItemRecipeBinding dataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_recipe, parent, false);
-
-        // Set the view's size and layout parameters
-        return new RecipeRecyclerViewAdapter.MyViewHolder(dataBinding);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recipe, parent, false);
+        return new RecipeRecyclerViewAdapter.MyViewHolder(view);
     }
 
     // Displays the data at a specified position.
@@ -55,19 +54,21 @@ public class RecipeRecyclerViewAdapter<MyViewHolder> extends RecyclerView.Adapte
         // Updates the content holder by replacing it with elements from your data set at a given position
         RecipeList.RecipeItem recipeItem = recipeList.get(position);
         RecipeList.Recipe recipe = recipeItem.recipe;
-        holder.binding.tvTitle.setText(recipe.label);
+        holder.tvTitle.setText(recipe.label);
 
 
         // https://github.com/bumptech/glide
         // Displays the image
-        Glide.with(holder.itemView).load(recipe.image).into(holder.binding.ivRecipe);
+        Glide.with(holder.itemView).load(recipe.image).into(holder.ivRecipe);
 
-        holder.binding.tvSource.setText(recipe.source);
-        holder.binding.tvHealthLabel.setText(recipe.healthLabels.toString());
-        holder.binding.tvUrl.setText(recipe.url);
-        holder.binding.tvIngredients.setText(recipe.ingredientLines.toString());
+        holder.tvSource.setText(recipe.source);
+        holder.tvHealthLabel.setText(recipe.healthLabels.toString());
+        holder.tvUrl.setText(recipe.url);
 
-   }
+        List<String> ingredientList = recipe.ingredientLines;
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(holder.rootView.getContext(), R.layout.item_ingredient, R.id.tv_ingredient, ingredientList);
+        holder.listIngredients.setAdapter(adapter);
+    }
 
     //Returns the total number of items in the data set held by the adapter.
     @Override
@@ -77,11 +78,23 @@ public class RecipeRecyclerViewAdapter<MyViewHolder> extends RecyclerView.Adapte
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private final ItemRecipeBinding binding;
+        private final View rootView;
+        private final TextView tvSource;
+        private final TextView tvHealthLabel;
+        private final TextView tvUrl;
+        private final TextView tvTitle;
+        private final ListView listIngredients;
+        private final ImageView ivRecipe;
 
-        public MyViewHolder(ItemRecipeBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
+        public MyViewHolder(View view) {
+            super(view);
+            rootView = view;
+            tvSource = view.findViewById(R.id.tv_source);
+            tvHealthLabel = view.findViewById(R.id.tv_healthLabel);
+            tvUrl = view.findViewById(R.id.tv_url);
+            tvTitle = view.findViewById(R.id.tv_title);
+            listIngredients = view.findViewById(R.id.list_ingredients);
+            ivRecipe = view.findViewById(R.id.iv_recipe);
         }
     }
 }
