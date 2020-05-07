@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.recipes.R;
 import com.example.recipes.databinding.FragmentRecipeListBinding;
 
@@ -39,7 +41,9 @@ public class RecipeListFragment extends Fragment {
     private RecyclerView rvRecipe;
     private EditText svRecipe;
     private Button btnSearch;
-
+    private TextView dataSource;
+    private ImageView ivPlaceHolder;
+    private String gifURL = "https://cdn.dribbble.com/users/989157/screenshots/4822481/food-icons-loading-animation.gif";
 
     private RecipeListFragmentViewModel mViewModel;
     private final RecipeRecyclerViewAdapter mAdapter = new RecipeRecyclerViewAdapter();
@@ -79,6 +83,10 @@ public class RecipeListFragment extends Fragment {
         rvRecipe = inflate.findViewById(R.id.rv_recipe);
         svRecipe = inflate.findViewById(R.id.sv_recipe);
         btnSearch  = inflate.findViewById(R.id.btn_search);
+        dataSource = inflate.findViewById(R.id.tv_datasource);
+        ivPlaceHolder = inflate.findViewById(R.id.iv_placeholder);
+
+        Glide.with(this).load(gifURL).into(ivPlaceHolder);
 
         rvRecipe.setAdapter(mAdapter);
 
@@ -93,7 +101,8 @@ public class RecipeListFragment extends Fragment {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                dataSource.setVisibility(View.GONE);
+                ivPlaceHolder.setVisibility(View.GONE);
                 String foodTypeSearch = svRecipe.getText().toString();
                 mViewModel.getRecipes(foodTypeSearch);
             }

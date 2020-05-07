@@ -23,7 +23,7 @@ import networking.response.RecipeList;
 
 public class RecipeRecyclerViewAdapter<MyViewHolder> extends RecyclerView.Adapter<RecipeRecyclerViewAdapter.MyViewHolder> {
 
-    // Abstract recipe list
+    // recipe list
     private List<RecipeList.RecipeItem> recipeList = new ArrayList<>();
 
     public void clearList() {
