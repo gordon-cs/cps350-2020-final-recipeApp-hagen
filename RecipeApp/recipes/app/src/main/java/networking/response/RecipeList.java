@@ -33,6 +33,7 @@ public class RecipeList {
         public final double calories;
 
 
+        // Mutator that sets the recipe name
         public Recipe(String uri, String label, String image, String source, String url, String shareAs, List<String> ingredientLines, List<String> healthLabels, double calories) {
             this.uri = uri;
             this.label = label;

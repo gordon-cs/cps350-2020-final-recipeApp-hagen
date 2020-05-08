@@ -31,7 +31,7 @@ public class RecipeRecyclerViewAdapter<MyViewHolder> extends RecyclerView.Adapte
         notifyDataSetChanged();
     }
 
-    // Creates a constructor based on data set
+    // Creates a constructor based on data set and updates the list
     public void setRecipeList(List<RecipeList.RecipeItem> recipeList) {
         this.recipeList = recipeList;
         notifyDataSetChanged();
@@ -47,7 +47,7 @@ public class RecipeRecyclerViewAdapter<MyViewHolder> extends RecyclerView.Adapte
         return new RecipeRecyclerViewAdapter.MyViewHolder(view);
     }
 
-    // Displays the data at a specified position.
+    // Displays the data at a specified position. Basically passes data to view holder
     @Override
     public void onBindViewHolder(@NonNull RecipeRecyclerViewAdapter.MyViewHolder holder, int position) {
 
@@ -68,9 +68,10 @@ public class RecipeRecyclerViewAdapter<MyViewHolder> extends RecyclerView.Adapte
         List<String> ingredientList = recipe.ingredientLines;
         ArrayAdapter<String> adapter = new ArrayAdapter<>(holder.rootView.getContext(), R.layout.item_ingredient, R.id.tv_ingredient, ingredientList);
         holder.listIngredients.setAdapter(adapter);
+
     }
 
-    //Returns the total number of items in the data set held by the adapter.
+    // Returns the total number of items in the data set held by the adapter. Basically returns what we want to display
     @Override
     public int getItemCount() {
         return recipeList.size();
@@ -86,6 +87,7 @@ public class RecipeRecyclerViewAdapter<MyViewHolder> extends RecyclerView.Adapte
         private final ListView listIngredients;
         private final ImageView ivRecipe;
 
+        // Represents what items in collection will be displayed
         public MyViewHolder(View view) {
             super(view);
             rootView = view;

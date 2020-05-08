@@ -13,5 +13,10 @@ public interface Api {
     // Fetches this call to allow user to search
     @GET("search?app_id=cdf796be&app_key=8a06499d4cd1a77724a5f2a37c0ae237&from=0&to=3&calories=591-722&health=alcohol-free")
     Call<RecipeList> getRecipes(@Query("q") String foodType);
+
+
+   // @GET("https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=jsonp&jsonp=?")
+   // Call<Quotes> getQuotes();
+
 }
 

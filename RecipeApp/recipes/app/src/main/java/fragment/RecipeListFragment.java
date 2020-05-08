@@ -1,19 +1,14 @@
 package fragment;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import androidx.lifecycle.Observer;
@@ -22,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.recipes.R;
-import com.example.recipes.databinding.FragmentRecipeListBinding;
 
 import java.util.List;
 
@@ -45,23 +39,27 @@ public class RecipeListFragment extends Fragment {
     private ImageView ivPlaceHolder;
     private String gifURL = "https://cdn.dribbble.com/users/989157/screenshots/4822481/food-icons-loading-animation.gif";
 
+    // Abstraction of the view
     private RecipeListFragmentViewModel mViewModel;
     private final RecipeRecyclerViewAdapter mAdapter = new RecipeRecyclerViewAdapter();
     public RecipeListFragment() { }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Will either create or reuse an existing view model
         mViewModel = ViewModelProviders.of(this).get(RecipeListFragmentViewModel.class);
         mViewModel.getRecipes(food_filter);
 
+        // This method updates recipe
         listenToLiveDataUpdates();
     }
 
     private void listenToLiveDataUpdates() {
         // Listening to liveData for recipe updates
-        mViewModel.recipeListLiveData.observe(this,   new Observer<RecipeList>() {
+        mViewModel.recipeListLiveData.observe(this, new Observer<RecipeList>() {
             @Override
             public void onChanged(RecipeList recipeList) {
                 // Recipe search results is nothing, so clear list
@@ -76,22 +74,23 @@ public class RecipeListFragment extends Fragment {
         });
     }
 
+
     // Called to have the fragment instantiate its user interface view.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.fragment_recipe_list, container, false);
+        // Binds the XML elements with java object using findViewById function
         rvRecipe = inflate.findViewById(R.id.rv_recipe);
         svRecipe = inflate.findViewById(R.id.sv_recipe);
         btnSearch  = inflate.findViewById(R.id.btn_search);
         dataSource = inflate.findViewById(R.id.tv_datasource);
         ivPlaceHolder = inflate.findViewById(R.id.iv_placeholder);
 
+        // Binds the string gifURL to XML element
         Glide.with(this).load(gifURL).into(ivPlaceHolder);
 
         rvRecipe.setAdapter(mAdapter);
-
         bindSearchView();
-
         return inflate;
     }
 
